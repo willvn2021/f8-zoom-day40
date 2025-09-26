@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+    --brand-color: #6f5aff;
+    --dark-color: #2c3e50;
+    --light-color: #ffffff;
+    --muted-color: #95a5a6;
+    --danger-color: #e74c3c;
+    --bg-color: #f4f7f6;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+.counter-container {
+    background-color: var(--light-color);
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+}
+
+.counter-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#counter-value {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--brand-color);
+    margin: 20px 0;
+    line-height: 1;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--light-color);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#increase {
+    background-color: var(--brand-color);
+}
+
+#decrease {
+    background-color: #3498db;
+}
+
+#reset {
+    background-color: var(--muted-color);
+}
+
+#unsubscribe {
+    background-color: transparent;
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+}
+
+#unsubscribe:hover {
+    background-color: var(--danger-color);
+    color: var(--light-color);
+}

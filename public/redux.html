@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Redux Core Counter</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="counter-container">
+            <h1 class="counter-title">Redux Counter</h1>
+
+            <!-- Hiển thị giá trị -->
+            <div id="counter-value">0</div>
+
+            <!-- Control Button -->
+            <div class="button-group">
+                <button id="decrease" class="btn">- Decrease</button>
+                <button id="increase" class="btn">+ Increase</button>
+            </div>
+
+            <!-- Button Reset + Unsubscribe -->
+            <div class="button-group">
+                <button id="reset" class="btn">Reset</button>
+                <button id="unsubscribe" class="btn">Unsubscribe</button>
+            </div>
+        </div>
+
+        <!-- Nhúng Redux từ CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/redux@4.2.1/dist/redux.js"></script>
+
+        <!-- My Redux -->
+        <script src="./redux.js"></script>
+    </body>
+</html>
