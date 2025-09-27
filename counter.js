@@ -34,14 +34,17 @@ const unsubscribe = document.getElementById("unsubscribe");
 // Event +  Store dispatch
 increase.addEventListener("click", () => {
     store.dispatch({ type: "INCREMENT" });
+    console.log(store.getState());
 });
 
 decrease.addEventListener("click", () => {
     store.dispatch({ type: "DECREMENT" });
+    console.log(store.getState());
 });
 
 reset.addEventListener("click", () => {
     store.dispatch({ type: "RESET" });
+    console.log(store.getState());
 });
 
 unsubscribe.addEventListener("click", () => {
