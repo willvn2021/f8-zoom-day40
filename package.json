@@ -15,7 +15,8 @@
         "clsx": "^2.1.1",
         "react": "^19.1.0",
         "react-dom": "^19.1.1",
-        "react-router": "^7.9.2"
+        "react-router": "^7.9.2",
+        "simple-git": "^3.28.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.25.0",
