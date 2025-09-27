@@ -2,7 +2,7 @@
 import { HashRouter, Routes, Route } from "react-router";
 import Navigation from "../../layoutS/Navigation";
 import Home from "../../pageS/Home";
-import DemoReduxCore from "../../pageS/DemoReduxCore";
+import DemoReduxReact from "../../pageS/DemoReduxReact";
 
 function AppRoutes() {
     return (
@@ -10,7 +10,7 @@ function AppRoutes() {
             <Navigation />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/DemoReduxCore" element={<DemoReduxCore />} />
+                <Route path="/DemoReduxReact" element={<DemoReduxReact />} />
             </Routes>
         </HashRouter>
     );

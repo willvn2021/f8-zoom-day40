@@ -7,6 +7,10 @@ const navItems = [
         to: "/",
         title: "Home",
     },
+    {
+        to: "/DemoReduxReact",
+        title: "Demo React Redux",
+    },
 ];
 
 function Navigation() {

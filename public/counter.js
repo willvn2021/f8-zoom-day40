@@ -1,5 +1,3 @@
-const { createStore } = Redux;
-
 // Bước 1: Tạo init State
 const initState = 0;
 
@@ -18,6 +16,7 @@ function reducer(state, action) {
 }
 
 // Bước 3: Tạo Store
+// eslint-disable-next-line no-undef
 const store = Redux.createStore(reducer, initState);
 
 //  - store.dispatch(action): Bắn đi action tới reducer

@@ -1,0 +1,133 @@
+$brand-color: #6f5aff;
+$brand-color-hover: #5a48d1;
+
+.wrapper {
+    padding: 20px 30px;
+    max-width: 600px;
+    margin: 40px auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    h1 {
+        text-align: center;
+        color: $brand-color;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+    }
+
+    p {
+        text-align: center;
+        color: #7f8c8d;
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+}
+
+.taskForm {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+
+    input {
+        flex-grow: 1;
+        padding: 10px 15px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: $brand-color;
+            box-shadow: 0 0 0 3px rgba(111, 90, 255, 0.2);
+        }
+    }
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+
+        &[type="submit"] {
+            background-color: $brand-color;
+            color: white;
+            &:hover {
+                background-color: $brand-color-hover;
+            }
+        }
+
+        &[type="button"] {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            &:hover {
+                background-color: #e5e7eb;
+            }
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}
+
+.taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.taskItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid #eef2f7;
+    border-radius: 10px;
+    background: #fafafa;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #f9fafb;
+    }
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &.completed {
+        text-decoration: line-through;
+        color: #95a5a6;
+    }
+
+    & + & {
+        margin-top: 10px;
+    }
+
+    .taskName {
+        flex-grow: 1;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+
+    .deleteButton {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 6px;
+        border-radius: 50%;
+        transition: color 0.2s ease, background-color 0.2s ease;
+
+        &:hover {
+            color: #e74c3c;
+            background-color: #fef2f2;
+        }
+    }
+}
