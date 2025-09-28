@@ -21,7 +21,7 @@ $brand-color-hover: #5a48d1;
 
     p {
         text-align: center;
-        color: #7f8c8d;
+        color: #6b7280;
         margin-top: 0;
         margin-bottom: 25px;
     }
@@ -73,6 +73,12 @@ $brand-color-hover: #5a48d1;
 
         &:active {
             transform: translateY(1px);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
     }
 }
@@ -130,4 +136,11 @@ $brand-color-hover: #5a48d1;
             background-color: #fef2f2;
         }
     }
+}
+
+.loadingText,
+.emptyText {
+    text-align: center;
+    color: #6b7280;
+    padding: 40px 0;
 }

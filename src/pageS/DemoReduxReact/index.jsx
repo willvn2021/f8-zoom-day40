@@ -10,6 +10,7 @@ function DemoReduxReact() {
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.taskLists);
     const [inputValue, setInputValue] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -34,18 +35,23 @@ function DemoReduxReact() {
 
     // Handle Load Tasks
     const handleLoadTasks = () => {
-        // Dữ liệu fake để load vào store
-        const sampleTasks = [
-            { id: 101, name: "Học HTML & CSS", completed: true },
-            { id: 102, name: "Học JavaScript", completed: true },
-            { id: 103, name: "Học ReactJS", completed: false },
-            { id: 104, name: "Làm project cuối khóa", completed: false },
-        ];
+        setIsLoading(true);
 
-        dispatch({
-            type: "SET_TASKS",
-            payload: sampleTasks,
-        });
+        setTimeout(() => {
+            const sampleTasks = [
+                { id: 101, name: "Học HTML & CSS", completed: true },
+                { id: 102, name: "Học JavaScript", completed: true },
+                { id: 103, name: "Học ReactJS", completed: false },
+                { id: 104, name: "Làm project cuối khóa", completed: false },
+            ];
+
+            dispatch({
+                type: "SET_TASKS",
+                payload: sampleTasks,
+            });
+
+            setIsLoading(false);
+        }, 1000);
     };
 
     // Handle Update Task
@@ -77,17 +83,26 @@ function DemoReduxReact() {
                     name="task-name"
                     value={inputValue}
                     onChange={handleInputChange}
+                    disabled={isLoading}
                     placeholder="Add new task..."
                 />
-                <button type="submit">Add</button>
-                <button type="button" onClick={handleLoadTasks}>
-                    Load Tasks
+                <button type="submit" disabled={isLoading}>
+                    Add
+                </button>
+                <button
+                    type="button"
+                    onClick={handleLoadTasks}
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Loading..." : "Load Tasks"}
                 </button>
             </form>
 
-            <ul className={styles.taskList}>
-                {tasks.map((task) => {
-                    return (
+            {isLoading ? (
+                <p className={styles.loadingText}>Loading tasks...</p>
+            ) : tasks.length > 0 ? (
+                <ul className={styles.taskList}>
+                    {tasks.map((task) => (
                         <li
                             key={task.id}
                             className={clsx(styles.taskItem, {
@@ -113,9 +128,13 @@ function DemoReduxReact() {
                                 Delete
                             </button>
                         </li>
-                    );
-                })}
-            </ul>
+                    ))}
+                </ul>
+            ) : (
+                <p className={styles.emptyText}>
+                    No tasks found. Click "Load Tasks" to get started.
+                </p>
+            )}
         </div>
     );
 }
