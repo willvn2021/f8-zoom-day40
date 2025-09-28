@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "name": "Học HTML & CSS",
+      "completed": true
+    },
+    {
+      "id": "2",
+      "name": "Học JavaScript",
+      "completed": true
+    },
+    {
+      "id": "3",
+      "name": "Học ReactJS",
+      "completed": false
+    },
+    {
+      "id": "e6cd",
+      "name": "Làm bài Tập Day 40",
+      "completed": false
+    }
+  ]
+}

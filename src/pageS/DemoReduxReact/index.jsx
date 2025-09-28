@@ -1,133 +1,114 @@
 // import { useDispatch, useSelector } from "react-redux";
 
-import { useState } from "react";
-import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
+import TaskItem from "../../componentS/TaskItem";
 import styles from "./DemoReduxReact.module.scss";
 
 function DemoReduxReact() {
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.taskLists);
-    const [inputValue, setInputValue] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [deletingId, setDeletingId] = useState(null);
 
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value);
-    };
+    useEffect(() => {
+        const fetchTasks = async () => {
+            setIsLoading(true);
+            try {
+                const response = await fetch("http://localhost:3001/tasks");
+                const tasks = await response.json();
+                dispatch({
+                    type: "SET_TASKS",
+                    payload: tasks,
+                });
+            } catch (error) {
+                console.error("Failed to fetch tasks:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    // Handle Thêm Task
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (inputValue.trim()) {
+        fetchTasks();
+    }, [dispatch]);
+
+    // Handle Update Checkbox Task
+    const handleUpdateTask = async (task) => {
+        const updatedTask = { ...task, completed: !task.completed };
+
+        try {
+            const response = await fetch(
+                `http://localhost:3001/tasks/${task.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedTask),
+                }
+            );
+
+            if (!response.ok) throw new Error("Failed to update task status.");
+
+            const savedTask = await response.json();
+
             dispatch({
-                type: "ADD_TASK",
-                payload: {
-                    id: Date.now(),
-                    name: inputValue,
-                    completed: false,
-                },
+                type: "UPDATE_TASK",
+                payload: savedTask,
             });
-
-            setInputValue("");
+        } catch (error) {
+            console.error("Error updating task:", error);
         }
     };
 
-    // Handle Load Tasks
-    const handleLoadTasks = () => {
-        setIsLoading(true);
-
-        setTimeout(() => {
-            const sampleTasks = [
-                { id: 101, name: "Học HTML & CSS", completed: true },
-                { id: 102, name: "Học JavaScript", completed: true },
-                { id: 103, name: "Học ReactJS", completed: false },
-                { id: 104, name: "Làm project cuối khóa", completed: false },
-            ];
-
-            dispatch({
-                type: "SET_TASKS",
-                payload: sampleTasks,
-            });
-
-            setIsLoading(false);
-        }, 1000);
-    };
-
-    // Handle Update Task
-    const handleUpdateTask = (task) => {
-        dispatch({
-            type: "UPDATE_TASK",
-            payload: {
-                ...task,
-                completed: !task.completed,
-            },
-        });
-    };
-
     // Handle Delete Task
-    const handleDeleteTask = (taskId) => {
-        dispatch({
-            type: "DELETE_TASK",
-            payload: taskId,
-        });
+    const handleDeleteTask = async (taskId) => {
+        setDeletingId(taskId);
+        try {
+            const response = await fetch(
+                `http://localhost:3001/tasks/${taskId}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Failed to delete task.");
+            }
+            // Gọi API DELETE, sau đó dispatch DELETE_TASK
+            dispatch({
+                type: "DELETE_TASK",
+                payload: taskId,
+            });
+        } catch (error) {
+            console.error("Failed to delete task:", error);
+        } finally {
+            setDeletingId(null);
+        }
     };
 
     return (
         <div className={styles.wrapper}>
             <h1>Task Manager</h1>
-            <p>Demo React & Redux | From F8 Width Love ❤️</p>
-            <form className={styles.taskForm} onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="task-name"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    disabled={isLoading}
-                    placeholder="Add new task..."
-                />
-                <button type="submit" disabled={isLoading}>
-                    Add
-                </button>
-                <button
-                    type="button"
-                    onClick={handleLoadTasks}
-                    disabled={isLoading}
-                >
-                    {isLoading ? "Loading..." : "Load Tasks"}
-                </button>
-            </form>
+            <div className={styles.header}>
+                <p>From F8 Width Love ❤️</p>
+                <Link to="/add" className={styles.addButton}>
+                    Add New Task
+                </Link>
+            </div>
 
             {isLoading ? (
                 <p className={styles.loadingText}>Loading tasks...</p>
             ) : tasks.length > 0 ? (
                 <ul className={styles.taskList}>
                     {tasks.map((task) => (
-                        <li
+                        <TaskItem
                             key={task.id}
-                            className={clsx(styles.taskItem, {
-                                [styles.completed]: task.completed,
-                            })}
-                        >
-                            <input
-                                id={`task-${task.id}`}
-                                type="checkbox"
-                                checked={task.completed}
-                                onChange={() => handleUpdateTask(task)}
-                            />
-                            <label
-                                htmlFor={`task-${task.id}`}
-                                className={styles.taskName}
-                            >
-                                {task.name}
-                            </label>
-                            <button
-                                className={styles.deleteButton}
-                                onClick={() => handleDeleteTask(task.id)}
-                            >
-                                Delete
-                            </button>
-                        </li>
+                            task={task}
+                            onUpdateStatus={handleUpdateTask}
+                            onDelete={handleDeleteTask}
+                            isDeleting={deletingId === task.id}
+                        />
                     ))}
                 </ul>
             ) : (

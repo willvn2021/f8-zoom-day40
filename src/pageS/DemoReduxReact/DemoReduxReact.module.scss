@@ -18,67 +18,32 @@ $brand-color-hover: #5a48d1;
         margin-bottom: 2rem;
         font-size: 2.5rem;
     }
-
-    p {
-        text-align: center;
-        color: #6b7280;
-        margin-top: 0;
-        margin-bottom: 25px;
-    }
 }
 
-.taskForm {
+.header {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
 
-    input {
-        flex-grow: 1;
-        padding: 10px 15px;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-        &:focus {
-            outline: none;
-            border-color: $brand-color;
-            box-shadow: 0 0 0 3px rgba(111, 90, 255, 0.2);
-        }
+    p {
+        color: #6b7280;
+        margin: 0;
     }
 
-    button {
+    .addButton {
+        background-color: $brand-color;
+        color: white;
         padding: 10px 20px;
-        border: none;
         border-radius: 8px;
-        cursor: pointer;
+        text-decoration: none;
         font-weight: 600;
-        transition: background-color 0.2s ease, transform 0.1s ease;
+        transition: background-color 0.2s ease;
 
-        &[type="submit"] {
-            background-color: $brand-color;
-            color: white;
-            &:hover {
-                background-color: $brand-color-hover;
-            }
-        }
-
-        &[type="button"] {
-            background-color: #f3f4f6;
-            color: #4b5563;
-            &:hover {
-                background-color: #e5e7eb;
-            }
-        }
-
-        &:active {
-            transform: translateY(1px);
-        }
-
-        &:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        &:hover {
+            background-color: $brand-color-hover;
         }
     }
 }
@@ -121,6 +86,33 @@ $brand-color-hover: #5a48d1;
         cursor: pointer;
     }
 
+    .taskLink {
+        flex-grow: 1;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .editButton {
+        margin-left: auto;
+        margin-right: 10px;
+        padding: 4px 12px;
+        font-size: 0.85rem;
+        background-color: #e5e7eb;
+        color: #374151;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #d1d5db;
+        }
+
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    }
+
     .deleteButton {
         background: none;
         border: none;
@@ -134,6 +126,11 @@ $brand-color-hover: #5a48d1;
         &:hover {
             color: #e74c3c;
             background-color: #fef2f2;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
         }
     }
 }
